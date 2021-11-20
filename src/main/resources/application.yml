@@ -18,3 +18,7 @@ spring:
           uri: lb://USER-SERVICE
           predicates: #요청을 처리하기전 HTTP 요청이 정의된 조건에 부합하는지 검사
             - Path=/user-service/**
+
+
+token:
+  secret: user_token
