@@ -17,8 +17,17 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates: #요청을 처리하기전 HTTP 요청이 정의된 조건에 부합하는지 검사
-            - Path=/user-service/**
+            - Path=/user-service/hello
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
 
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates: #요청을 처리하기전 HTTP 요청이 정의된 조건에 부합하는지 검사
+            - Path=/user-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
 
 token:
   secret: user_token
