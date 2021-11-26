@@ -79,7 +79,14 @@ spring:
         - id: reservation-service
           uri: lb://RESERVATION-SERVICE
           predicates: #예약 차단
-            - Path=/reservation-service/reservation/**
+            - Path=/reservation-service/reservation/info
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        - id: reservation-service
+          uri: lb://RESERVATION-SERVICE
+          predicates: #예약 차단
+            - Path=/reservation-service/reservation
           filters:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
