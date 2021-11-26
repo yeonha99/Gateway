@@ -16,18 +16,80 @@ spring:
       routes: #응답을 보낼 목적지 URL, 필터 항목을 식별하기 위한 ID로 구성
         - id: user-service
           uri: lb://USER-SERVICE
-          predicates: #요청을 처리하기전 HTTP 요청이 정의된 조건에 부합하는지 검사
-            - Path=/user-service/hello
+          predicates: #bo의 모든 서비스에 접근할때 로그인
+            - Path=/user-service/bo/login
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates: #bo의 모든 서비스에 접근할때 회원가입
+            - Path=/user-service/bo/sign-up/**
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates: #bo의 모든 서비스에 접근할때 로그인,회원가입 빼고 토큰없으면 반려
+            - Path=/user-service/bo/**
           filters:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
-
         - id: user-service
           uri: lb://USER-SERVICE
-          predicates: #요청을 처리하기전 HTTP 요청이 정의된 조건에 부합하는지 검사
+          predicates: #내 정보 조회에 접근하려 할때 토큰 없으면 반려
+            - Path=/user-service/info/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates: #유저 라우팅
             - Path=/user-service/**
           filters:
             - RemoveRequestHeader=Cookie
-
+        - id: review-service
+          uri: lb://REVIEW-SERVICE
+          predicates: #리뷰 수정 삭제 작성 로그인 했는지 확인
+            - Path=/review-service/review
+            - Method=PUT,POST,DELETE
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        - id: review-service
+          uri: lb://REVIEW-SERVICE
+          predicates: #내 리뷰 조회 로그인 했는지 확인
+            - Path=/review-service/review/user
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        - id: review-service
+          uri: lb://REVIEW-SERVICE
+          predicates: #리뷰 답변 수정 삭제 작성 로그인 했는지 여부 확인
+            - Path=/review-service/answer
+            - Method=PUT,POST,DELETE
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        - id: review-service
+          uri: lb://REVIEW-SERVICE
+          predicates: #리뷰 서비스 라우팅
+            - Path=/review-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: reservation-service
+          uri: lb://RESERVATION-SERVICE
+          predicates: #예약 차단
+            - Path=/reservation-service/reservation
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        - id: reservation-service
+          uri: lb://RESERVATION-SERVICE
+          predicates: #콘텐츠 수정 차단
+            - Path=/reservation-service/content
+            - Method=PUT
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
 token:
-  secret: user_token
+  secret: lg-uplus-team3-secret-key-lg-uplus-team3-secret-key
