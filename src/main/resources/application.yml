@@ -91,5 +91,32 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
+        - id: store-service
+          uri: lb://STORE-SERVICE
+          predicates: #매방 bo서비스 차단
+            - Path=/store-service/bo/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        - id: store-service
+          uri: lb://STORE-SERVICE
+          predicates: #매장 서비스 라우팅
+            - Path=/store-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates: #상품 서비스 bo 로그인 안하고 이용시 차단
+            - Path=/product-service/bo/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates: #상품 서비스 라우팅
+            - Path=/product-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+
 token:
   secret: lg-uplus-team3-secret-key-lg-uplus-team3-secret-key
