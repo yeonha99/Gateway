@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Component
@@ -37,6 +38,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
                 return onError(exchange, "no authorization header", HttpStatus.UNAUTHORIZED);//토큰 없다고 401 보냄
             }
             String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
+            System.out.println(authorizationHeader);
             String jwt = authorizationHeader.replace("Bearer ", ""); //Bearer toekn으로 담아져 와서 변환하는 과정
             if (!isJwtValid(jwt)) return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
 
@@ -51,7 +53,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
         try{
             claimMap = Jwts.parser()
-                    .setSigningKey(env.getProperty("token.secret"))
+                    .setSigningKey(env.getProperty("token.secret").getBytes())
                     .parseClaimsJws(jwt)
                     .getBody();
 

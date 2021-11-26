@@ -100,7 +100,7 @@ spring:
             - AuthorizationHeaderFilter
         - id: reservation-service
           uri: lb://RESERVATION-SERVICE
-          predicates: #예약라우팅
+          predicates: #예약라우정
             - Path=/reservation-service/**
           filters:
             - RemoveRequestHeader=Cookie
