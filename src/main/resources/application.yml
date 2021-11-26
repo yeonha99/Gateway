@@ -91,6 +91,12 @@ spring:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: reservation-service
+            uri: lb://RESERVATION-SERVICE
+            predicates: #예약 라우팅
+              - Path=/reservation-service/**
+            filters:
+              - RemoveRequestHeader=Cookie
+        - id: reservation-service
           uri: lb://RESERVATION-SERVICE
           predicates: #콘텐츠 수정 차단
             - Path=/reservation-service/content
