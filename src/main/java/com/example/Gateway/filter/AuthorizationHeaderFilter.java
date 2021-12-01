@@ -57,12 +57,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
                     .getBody();
 
         }catch (ExpiredJwtException e){
-            System.out.println("만료된 토큰");
-            System.out.println(e);
             returnValue=false;
         }catch (Exception e){
-            System.out.println("그 외 오류");
-            System.out.println(e);
             returnValue=false;
         }
         return returnValue;

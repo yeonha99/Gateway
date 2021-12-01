@@ -104,13 +104,13 @@ spring:
             - AuthorizationHeaderFilter
         - id: reservation-service
           uri: lb://RESERVATION-SERVICE
-          predicates: #예약라우정
+          predicates: #예약 라우팅
             - Path=/reservation-service/**
           filters:
             - RemoveRequestHeader=Cookie
         - id: store-service
           uri: lb://STORE-SERVICE
-          predicates: #매방 bo서비스 차단
+          predicates: #매장 bo서비스 차단
             - Path=/store-service/bo/**
           filters:
             - RemoveRequestHeader=Cookie
