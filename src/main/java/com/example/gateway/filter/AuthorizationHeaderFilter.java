@@ -1,4 +1,4 @@
-package com.example.Gateway.filter;
+package com.example.gateway.filter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Component
@@ -38,7 +37,6 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
                 return onError(exchange, "no authorization header", HttpStatus.UNAUTHORIZED);//토큰 없다고 401 보냄
             }
             String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-            System.out.println(authorizationHeader);
             String jwt = authorizationHeader.replace("Bearer ", ""); //Bearer toekn으로 담아져 와서 변환하는 과정
             if (!isJwtValid(jwt)) return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
 
@@ -48,22 +46,20 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     }
 
     private boolean isJwtValid(String jwt) {
-        boolean returnValue = true;
+        boolean returnValue;
         Map<String,Object> claimMap = null;
 
         try{
+
             claimMap = Jwts.parser()
                     .setSigningKey(env.getProperty("token.secret").getBytes())
                     .parseClaimsJws(jwt)
                     .getBody();
+            returnValue=true;
 
         }catch (ExpiredJwtException e){
-            System.out.println("만료된 토큰");
-            System.out.println(e);
             returnValue=false;
         }catch (Exception e){
-            System.out.println("그 외 오류");
-            System.out.println(e);
             returnValue=false;
         }
         return returnValue;
