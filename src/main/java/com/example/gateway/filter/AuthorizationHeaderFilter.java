@@ -1,4 +1,4 @@
-package com.example.Gateway.filter;
+package com.example.gateway.filter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Component
@@ -47,14 +46,16 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     }
 
     private boolean isJwtValid(String jwt) {
-        boolean returnValue = true;
+        boolean returnValue;
         Map<String,Object> claimMap = null;
 
         try{
+
             claimMap = Jwts.parser()
                     .setSigningKey(env.getProperty("token.secret").getBytes())
                     .parseClaimsJws(jwt)
                     .getBody();
+            returnValue=true;
 
         }catch (ExpiredJwtException e){
             returnValue=false;

@@ -1,4 +1,4 @@
-package com.example.Gateway.filter;
+package com.example.gateway.filter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
