@@ -16,8 +16,8 @@ spring:
     name: apigateway-service #유레카 서버에 등록되는 서비스 명
   cloud:
     client:
-      hostname:
-    gateway: 3.36.85.165
+      hostname: 3.36.85.165
+    gateway:
       routes: #응답을 보낼 목적지 URL, 필터 항목을 식별하기 위한 ID로 구성
         - id: user-service
           uri: lb://USER-SERVICE
