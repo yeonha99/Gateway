@@ -145,5 +145,15 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "gateway"
+  endpoint:
+    gateway:
+      enabled: true
+
 token:
   secret: lg-uplus-team3-secret-key-lg-uplus-team3-secret-key
