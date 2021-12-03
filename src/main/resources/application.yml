@@ -10,7 +10,8 @@ eureka:
     availability-zones:
       default: default-zone
     service-url:
-      defaultZone: http://a7f9443d24006441fa3d51c97e8a3acc-1892618396.ap-northeast-2.elb.amazonaws.com:8761/eureka/ #수정
+      defaultZone: http://localhost:8761/eureka/
+      #defaultZone: http://a7f9443d24006441fa3d51c97e8a3acc-1892618396.ap-northeast-2.elb.amazonaws.com:8761/eureka/ #수정
 
 spring:
   application:
@@ -22,8 +23,8 @@ spring:
           uri: lb://USER-SERVICE
           predicates: #bo의 모든 서비스에 접근할때 로그인
             - Path=/user-service/bo/login
-          filters:
-            - RemoveRequestHeader=Cookie
+          #filters:
+            #- RemoveRequestHeader=Cookie
         - id: user-service
           uri: lb://USER-SERVICE
           predicates: #bo의 모든 서비스에 접근할때 회원가입
@@ -34,9 +35,9 @@ spring:
           uri: lb://USER-SERVICE
           predicates: #bo의 모든 서비스에 접근할때 로그인,회원가입 빼고 토큰없으면 반려
             - Path=/user-service/bo/**
-          filters:
-            - RemoveRequestHeader=Cookie
-            - AuthorizationHeaderFilter
+         # filters:
+          #  - RemoveRequestHeader=Cookie
+           # - AuthorizationHeaderFilter
         - id: user-service
           uri: lb://USER-SERVICE
           predicates: #내 정보 조회에 접근하려 할때 토큰 없으면 반려
