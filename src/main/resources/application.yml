@@ -37,7 +37,6 @@ spring:
             - Path=/user-service/bo/**
           filters:
             - RemoveRequestHeader=Cookie
-            - AuthorizationHeaderFilter
         - id: user-service
           uri: lb://USER-SERVICE
           predicates: #내 정보 조회에 접근하려 할때 토큰 없으면 반려
