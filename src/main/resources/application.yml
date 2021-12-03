@@ -5,7 +5,6 @@ eureka:
   client:
     register-with-eureka: true #유레카 디스커버리 서버의 등록 여부
     fetch-registry: true #defalutZone의 유레카 서버에서 클라이언트 정보를 가져오는 것의 여부
-    name: apigateway-service
     region: default
     availability-zones:
       default: default-zone
@@ -16,7 +15,9 @@ spring:
   application:
     name: apigateway-service #유레카 서버에 등록되는 서비스 명
   cloud:
-    gateway:
+    client:
+      hostname:
+    gateway: 3.36.85.165
       routes: #응답을 보낼 목적지 URL, 필터 항목을 식별하기 위한 ID로 구성
         - id: user-service
           uri: lb://USER-SERVICE
