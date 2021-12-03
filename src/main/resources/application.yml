@@ -9,14 +9,12 @@ eureka:
     availability-zones:
       default: default-zone
     service-url:
-      defaultZone: http://eureka-service:8761/eureka/ #수정
+      defaultZone: http://3.36.85.165:8761/eureka/ #수정
 
 spring:
   application:
     name: apigateway-service #유레카 서버에 등록되는 서비스 명
   cloud:
-    client:
-      hostname: 3.36.85.165
     gateway:
       routes: #응답을 보낼 목적지 URL, 필터 항목을 식별하기 위한 ID로 구성
         - id: user-service
