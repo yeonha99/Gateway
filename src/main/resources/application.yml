@@ -10,7 +10,8 @@ eureka:
     region: default
     availability-zones:
       default: default-zone
-
+    service-url:
+      defaultZone: http://3.36.85.165:8761/eureka/ 
 spring:
   application:
     name: apigateway-service #유레카 서버에 등록되는 서비스 명
