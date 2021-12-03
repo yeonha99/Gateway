@@ -9,7 +9,7 @@ eureka:
     availability-zones:
       default: default-zone
     service-url:
-      defaultZone: http://discovery:8761/eureka/ #수정
+      defaultZone: http://eureka-service:8761/eureka/ #수정
 
 spring:
   application:
