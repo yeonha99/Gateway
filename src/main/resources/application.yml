@@ -17,6 +17,14 @@ spring:
     name: apigateway-service #유레카 서버에 등록되는 서비스 명
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
       routes: #응답을 보낼 목적지 URL, 필터 항목을 식별하기 위한 ID로 구성
         - id: user-service
           uri: lb://USER-SERVICE
