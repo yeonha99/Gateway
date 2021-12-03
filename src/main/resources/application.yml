@@ -10,7 +10,7 @@ eureka:
     availability-zones:
       default: default-zone
     service-url:
-      defaultZone: http://a7f9443d24006441fa3d51c97e8a3acc-1892618396.ap-northeast-2.elb.amazonaws.com:8761/eureka/ #수정
+      defaultZone: http://3.36.85.165:8761/eureka/ #수정
 
 spring:
   application:
