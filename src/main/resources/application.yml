@@ -1,15 +1,15 @@
 server:
   port: 7000
 
-eureka:
-  instance:
-    prefer-ip-address : true
-  client:
-    register-with-eureka: true #유레카 디스커버리 서버의 등록 여부
-    fetch-registry: true #defalutZone의 유레카 서버에서 클라이언트 정보를 가져오는 것의 여부
-    region: default
-    availability-zones:
-      default: default-zone
+#eureka:
+ # instance:
+  #  prefer-ip-address : true
+ # client:
+  #  register-with-eureka: true #유레카 디스커버리 서버의 등록 여부
+#    fetch-registry: true #defalutZone의 유레카 서버에서 클라이언트 정보를 가져오는 것의 여부
+ #   region: default
+  #  availability-zones:
+   #   default: default-zone
    # service-url:
     #  defaultZone: http://3.36.85.165:8761/eureka/ #수정http://3.36.85.165:8761/
 
