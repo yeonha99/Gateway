@@ -31,23 +31,25 @@ spring:
             allowedHeaders: "*"
       routes: #응답을 보낼 목적지 URL, 필터 항목을 식별하기 위한 ID로 구성
         - id: user-service
-          uri: lb://USER-SERVICE
+          #uri: lb://USER-SERVICE
+          uri: http://13.124.21.101:1000
           predicates: #bo의 모든 서비스에 접근할때 로그인
             - Path=/user-service/bo/login
           filters:
             - RemoveRequestHeader=Cookie
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: http://13.124.21.101:1000
           predicates: #bo의 모든 서비스에 접근할때 회원가입
             - Path=/user-service/bo/sign-up/**
           filters:
             - RemoveRequestHeader=Cookie
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: http://13.124.21.101:1000
           predicates: #bo의 모든 서비스에 접근할때 로그인,회원가입 빼고 토큰없으면 반려
             - Path=/user-service/bo/**
           filters:
             - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
         - id: user-service
           uri: lb://USER-SERVICE
           predicates: #내 정보 조회에 접근하려 할때 토큰 없으면 반려
@@ -56,13 +58,13 @@ spring:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: http://13.124.21.101:1000
           predicates: #유저 라우팅
             - Path=/user-service/**
           filters:
             - RemoveRequestHeader=Cookie
         - id: review-service
-          uri: lb://REVIEW-SERVICE
+          uri: http://13.124.21.101:3000
           predicates: #리뷰 수정 삭제 작성 로그인 했는지 확인
             - Path=/review-service/review
             - Method=PUT,POST,DELETE
@@ -70,7 +72,7 @@ spring:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: review-service
-          uri: lb://REVIEW-SERVICE
+          uri: http://13.124.21.101:3000
           predicates: #내 리뷰 조회 로그인 했는지 확인
             - Path=/review-service/review/user
             - Method=GET
@@ -78,7 +80,7 @@ spring:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: review-service
-          uri: lb://REVIEW-SERVICE
+          uri: http://13.124.21.101:3000
           predicates: #리뷰 답변 수정 삭제 작성 로그인 했는지 여부 확인
             - Path=/review-service/answer
             - Method=PUT,POST,DELETE
@@ -86,27 +88,27 @@ spring:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: review-service
-          uri: lb://REVIEW-SERVICE
+          uri: http://13.124.21.101:3000
           predicates: #리뷰 서비스 라우팅
             - Path=/review-service/**
           filters:
             - RemoveRequestHeader=Cookie
         - id: reservation-service
-          uri: lb://RESERVATION-SERVICE
+          uri: http://13.124.21.101:2000
           predicates: #예약 차단
             - Path=/reservation-service/reservation/info
           filters:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: reservation-service
-          uri: lb://RESERVATION-SERVICE
+          uri: http://13.124.21.101:2000
           predicates: #예약 차단
             - Path=/reservation-service/reservation
           filters:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: reservation-service
-          uri: lb://RESERVATION-SERVICE
+          uri: http://13.124.21.101:2000
           predicates: #콘텐츠 수정 차단
             - Path=/reservation-service/content
             - Method=PUT
@@ -114,33 +116,33 @@ spring:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: reservation-service
-          uri: lb://RESERVATION-SERVICE
+          uri: http://13.124.21.101:2000
           predicates: #예약 라우팅
             - Path=/reservation-service/**
           filters:
             - RemoveRequestHeader=Cookie
         - id: store-service
-          uri: lb://STORE-SERVICE
+          uri: http://13.124.21.101:4000
           predicates: #매장 bo서비스 차단
             - Path=/store-service/bo/**
           filters:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: store-service
-          uri: lb://STORE-SERVICE
+          uri: http://13.124.21.101:4000
           predicates: #매장 서비스 라우팅
             - Path=/store-service/**
           filters:
             - RemoveRequestHeader=Cookie
         - id: product-service
-          uri: lb://PRODUCT-SERVICE
+          uri: http://13.124.21.101:5000
           predicates: #상품 서비스 bo 로그인 안하고 이용시 차단
             - Path=/product-service/bo/**
           filters:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: product-service
-          uri: lb://PRODUCT-SERVICE
+          uri: http://13.124.21.101:5000
           predicates: #상품 서비스 라우팅
             - Path=/product-service/**
           filters:
