@@ -18,9 +18,9 @@ spring:
     name: apigateway-service #유레카 서버에 등록되는 서비스 명
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
+      #discovery:
+       # locator:
+        #  enabled: true
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       globalcors:
