@@ -76,7 +76,7 @@ spring:
           predicates: #내 리뷰 조회 로그인 했는지 확인
             - Path=/review-service/review/user
             - Method=GET
-          filters:
+          filters: #테스트용
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: review-service
