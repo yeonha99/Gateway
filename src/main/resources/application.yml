@@ -51,7 +51,7 @@ spring:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: http://13.124.21.101:1000
           predicates: #내 정보 조회에 접근하려 할때 토큰 없으면 반려
             - Path=/user-service/info/**
           filters:
